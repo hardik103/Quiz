@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quiz Page</title>
+	<style>
+body {
+    background-color: #b17f3ab0;
+    margin-left: 2%;
+}
+
+.section-headers {
+    font-size: 30px;
+    color: brown;
+}
+
+#heading {
+    width:80%;
+    top:0;
+    font-size:40px;
+    background-color: brown;
+    color:whitesmoke;
+    border-radius: 10px;
+    
+}
+#questions {
+    background-color: brown;
+    color: rgb(250, 238, 238);
+    border-radius: 10px;
+    font-size: 20px;
+    font-family: cursive;
+}
+
+#options {
+    background-color: bisque;
+    border-radius: 10px;
+    font-size: 13px;
+    font-family: cursive;
+}
+
+#countdown {
+    font-size: 20px;
+    width:80%;
+    color:rgb(255, 255, 255);
+}
+
+.button {
+    font-size:15px;
+    background-color: brown;
+    color:whitesmoke;
+    border-color: rgb(224, 229, 233);
+    border-radius: 10px;
+    font-family: cursive;
+}
+
+#quiz {
+    width:80%;
+}
+
+.rightpane-up {
+    width:17%;
+    margin-right: 2%;
+    border-radius: 10px;
+    margin-top: 15px;
+    height:40%;
+
+    background-color:brown;
+    border-color: rgb(45, 53, 206);
+    z-index: 0;
+    top: 0;
+    right: 0;
+    position:fixed;
+    overflow-x: hidden;
+}
+
+.rightpane-down {
+    width:17%;
+    margin-right: 2%;
+    border-radius: 10px;
+    margin-top: 324px;
+    height:45%;
+
+    background-color:antiquewhite;
+    border-color: rgb(17, 197, 11);
+    z-index: 0;
+    top: 0;
+    right: 0;
+    position:fixed;
+    overflow-x: hidden;
+}
+
+.rules {
+    color: brown;
+    font-size: 20px;
+}
+	</style>
+
+<script type="text/javascript">
+    var tab_change_count=3
+function checking() {
+
+var option=document.getElementsByClassName('correct');
+
+var counter=0;
+for(let i=0;i<option.length;i++) {
+	if(option[i].checked) {
+		counter++;
+	}
+}
+alert(`Your Score is ${counter} out of 10`);
+}
+
+	function timer() {
+		var minutes=20;
+		var str=`Time left <br>( ${minutes} : 00 )`;
+		//document.getElementById(`countdown`)=str;
+		var time=minutes*60000;
+		
+		setInterval( () => {
+
+		var ss=time/1000%60;
+		var mm=(time/1000-ss)/60;
+
+		ss=(ss<10)? '0'+ss : ss;
+		mm=(mm<10)? '0'+mm : mm;
+				
+		document.getElementById('countdown').innerText = (`Time left ( ${mm} : ${ss} )`);
+		if(time<=0) document.getElementById('quiz').submit();
+		time-=1000; } ,1000);
+	}
+function confirmation_submit() {
+	var res=prompt(`Are you sure to submit the marked answers (Y/N) ?`);
+	if(res == 'y' || res== 'Y') document.getElementById('quiz').submit();
+	else if(res!='n' && res!='N') alert(`Invalid Entry`);
+}
+
+function confirmation_reset() {
+	var res=prompt(`Are you sure to reset all marked answers (Y/N) ?`);
+	if(res == 'y' || res== 'Y') document.getElementById('quiz').reset();
+	else if(res!='n' && res!='N') alert(`Invalid Entry`);
+}
+
+function lost_focus(){
+    if(tab_change_count<=1) document.getElementById('quiz').submit();
+    else                    alert(`WARNING : YOU SWITCHED TABS\nIF YOU CONTINUE TO DO SO YOUR TEST WILL BE AUTOMATICALLY SUBMITTED`);
+    --tab_change_count;
+}
+
+</script> 
+
+</head>
+
+<body onload="timer()" vlink="white" alink="brown" link="white" onblur="lost_focus()">
+
+<p id="heading" align="center">QUIZ PAGE</p>
+	
+<form id="quiz" method="get" action="http://localhost:8080/result">
+	<hr>
+	<div class="rightpane-up">
+		<p id="countdown" align="right"></p><hr>
+		<font color="white" >
+		Click on the topics to switch between Sections:</font>
+		<ul>
+			<li><a href="#setA">Section A (1 - 10)</a></li>
+			<li><a href="#setB">Section B (11 - 20)</a></li>
+			<li><a href="#setC">Section C (21 - 30)</a></li>
+		</ul>
+	</div>
+	
+	<div class="rightpane-down">
+	<p class="rules" align="center">RULES</p><hr>
+	<ul>
+		<li>Duration of this quiz is 10 minutes.</li>
+		<li>It is divided into 3 sections.</li>
+		<li>The form will automatically submit when the time is up.</li>
+		<li>Each question carries 1 mark.</li>
+	</ul>
+	<hr>
+	<input type="button" value="End Test"  onclick="confirmation_submit()" class="button">
+	<input type="button" value="Clear Selections" onclick="confirmation_reset()" class="button">
+	<input type="button" value="Evaluate" onclick="checking()" class="button">
+	</div>
+
+	
+<div id="setA"></div>
+<p class="section-headers">SECTION A</p>
+<div id="questions">
+Q1. Who developed NodeJS ?<br></div>
+<div id="options">	
+<input type="radio" name='1' value='a'>
+<label>a. Google</label><br>
+
+<input type="radio" name='1' value='b'>
+<label>b. Yahoo</label><br>
+
+<input type="radio" name='1' value='c' class="correct">
+<label>c. Microsoft</label><br>
+
+<input type="radio" name='1' value='d'>
+<label>d. Amazon</label></div>
+
+<br><br>
+
+<div id="questions">
+Q2. Which function is used to include modules in NodeJS ?<br></div>
+<div id="options">
+<input type="radio" name='2' value='a' class="correct">
+<label>a. require()</label><br>
+	
+<input type="radio" name='2' value='b'>
+<label>b. include()</label><br>
+
+<input type="radio" name='2' value='c'>
+<label>c. import()</label><br>
+	
+<input type="radio" name='2' value='d'>
+<label>d. attach()</label></div>
+
+<br><br>
+
+<div id="questions">
+Q3. How NodeJS modules are available externally ?<br></div>
+<div id="options">	
+<input type="radio" name='3' value='a'>
+<label>a. module.spread</label><br>
+
+<input type="radio" name='3' value='b' class="correct">
+<label>b. module.exports</label><br>
+
+<input type="radio" name='3' value='c'>
+<label>c. module.expose</label><br>
+
+<input type="radio" name='3' value='d'>
+<label>d. module.show</label></div>
+	
+<br><br>
+
+<div id="questions">
+Q4. In which of the following areas, NodeJS is not good to use ?<br></div>
+<div id="options">
+<input type="radio" name='4' value='a'>
+<label>a. IO  Bound</label><br>
+
+<input type="radio" name='4' value='b'>
+<label>b. Data Streaming</label><br>
+
+<input type="radio" name='4' value='c' class="correct">
+<label>c. CPU Intensive</label><br>
+
+<input type="radio" name='4' value='d'>
+<label>d. Real Time Applications</label></div>
+
+<br><br>
+
+<div id="questions">
+Q5. Node uses _____ engine in Core.<br></div>
+<div id="options">
+<input type="radio" name='5' value='a' class="correct">
+<label>a. Chrome's V8</label><br>
+
+<input type="radio" name='5' value='b'>
+<label>b. Spider Monkey</label><br>
+
+<input type="radio" name='5' value='c'>
+<label>c. Microsoft Chakra</label><br>
+
+<input type="radio" name='5' value='d'>
+<label>d. Django</label></div>
+
+<br><br>
+
+<div id="questions">
+Q6. REPL stands for _________ .<br></div>
+<div id="options">
+<input type="radio" name='6' value='a' class="correct">
+<label>a. Read, Evaluate, Print, Loop</label><br>
+
+<input type="radio" name='6' value='b'>
+<label>b. Research, Evaluate, Program, Learn</label><br>
+
+<input type="radio" name='6' value='c'>
+<label>c. Rean, Earn, Point, Learn</label><br>
+
+<input type="radio" name='6' value='d'>
+<label>d. Read, Evaluate, Point, Loop</label></div>
+
+<br><br>
+
+<div id="questions">
+Q7. NPM stands for ________ .<br></div>
+<div id="options">
+<input type="radio" name='7' value='a'>
+<label>a. Node Project Manager</label><br>
+
+<input type="radio" name='7' value='b' class="correct">
+<label>b. Node Package Manager</label><br>
+
+<input type="radio" name='7' value='c'>
+<label>c. New Project Manager</label><br>
+
+<input type="radio" name='7' value='d'>
+<label>d. New Package Manager</label></div>
+<br><br>
+
+<div id="questions">
+Q8. What is the default scope in NodeJS application ?<br></div>
+<div id="options">
+<input type="radio" name='8' value='a'>
+<label>a. Public</label><br>
+
+<input type="radio" name='8' value='b'>
+<label>b. Private</label><br>
+
+<input type="radio" name='8' value='c' class="correct">
+<label>c. Local</label><br>
+
+<input type="radio" name='8' value='d'>
+<label>d. Global</label></div>
+
+<br><br>
+
+<div id="questions">
+Q9. Which of the following code can create a web  server ?<br></div>
+<div id="options">
+<input type="radio" name='9' value='a' class="correct">
+<label>a. http.createServer(callback)</label><br>
+
+<input type="radio" name='9' value='b'>
+<label>b. http.createWebServer(callback)</label><br>
+
+<input type="radio" name='9' value='c'>
+<label>c. http.createHttpServer(callback)</label><br>
+
+<input type="radio" name='9' value='d'>
+<label>d. All of the above</label></div>
+
+<br><br>
+
+<div id="questions">
+Q10. NodeJS is ________ by default.</div>
+<div id="options">
+<input type="radio" name='10' value='a'>
+<label>a. Synchronous</label><br>
+
+<input type="radio" name='10' value='b' class="correct">
+<label>b. Asynchronous</label><br>
+
+<input type="radio" name='10' value='c'>
+<label>c. Multithreaded</label><br>
+
+<input type="radio" name='10' value='d'>
+<label>d. None of the above</label></div>
+</div>
+
+<br><hr><br><br>
+
+<div id="setB">
+<p class="section-headers">SECTION B</p>
+<div id="questions">
+Q11. Which of these is not a component of the basic Front-end ?<br></div>
+<div id="options">	
+<input type="radio" name='11' value='a' class="correct">
+<label value="go">a. J Query</label><br>
+
+<input type="radio" name='11' value='b'>
+<label>b. CSS</label><br>
+
+<input type="radio" name='11' value='c'>
+<label>c. Java Script</label><br>
+
+<input type="radio" name='11' value='d'>
+<label>d. HTML</label></div>
+
+<br><br>
+
+<div id="questions">
+Q12. How can you define Node JS ?<br></div>
+<div id="options">
+<input type="radio" name='12' value='a'>
+<label>a. Frontend Java Script</label><br>
+	
+<input type="radio" name='12' value='b'>
+<label>b. Backend Java Script</label><br>
+
+<input type="radio" name='12' value='c' class="correct">
+<label>c. Runtime Environment of Java Script</label><br>
+	
+<input type="radio" name='12' value='d'>
+<label>d. Framework of Java Script</label></div>
+
+<br><br>
+
+<div id="questions">
+Q13. Which of these languages is not a back-end language ?<br></div>
+<div id="options">	
+<input type="radio" name='13' value='a'>
+<label>a. PHP</label><br>
+
+<input type="radio" name='13' value='b' class="correct">
+<label>b. CSS</label><br>
+
+<input type="radio" name='13' value='c'>
+<label>c. Python</label><br>
+
+<input type="radio" name='13' value='d'>
+<label>d. Ruby</label></div>
+	
+<br><br>
+
+<div id="questions">
+Q14. Java Script is not a/an _______ language.<br></div>
+<div id="options">
+<input type="radio" name='14' value='a'>
+<label>a. Scripting</label><br>
+
+<input type="radio" name='14' value='b'>
+<label>b. Object Oriented</label><br>
+
+<input type="radio" name='14' value='c'>
+<label>c. Dynamic</label><br>
+
+<input type="radio" name='14' value='d' class="correct">
+<label>d. Static</label></div>
+
+<br><br>
+
+<div id="questions">
+Q15. Which is the best way to handle database using Node JS ?<br></div>
+<div id="options">
+<input type="radio" name='15' value='a' class="correct">
+<label>a. Mongo DB</label><br>
+
+<input type="radio" name='15' value='b'>
+<label>b. Bootstrap</label><br>
+
+<input type="radio" name='15' value='c'>
+<label>c. Strapi</label><br>
+
+<input type="radio" name='15' value='d'>
+<label>d. Django</label></div>
+
+<br><br>
+
+<div id="questions">
+Q16. Which of these is not a framework of javascript ?<br></div>
+<div id="options">
+<input type="radio" name='16' value='a'>
+<label>a. Vue</label><br>
+
+<input type="radio" name='16' value='b'>
+<label>b. Next</label><br>
+
+<input type="radio" name='16' value='c' class="correct">
+<label>c. JSON</label><br>
+
+<input type="radio" name='16' value='d'>
+<label>d. Angular</label></div>
+
+<br><br>
+
+<div id="questions">
+Q17. Which tool is used to monitor the changes made to a node JS file ?<br></div>
+<div id="options">
+<input type="radio" name='17' value='a'>
+<label>a. Live Server</label><br>
+
+<input type="radio" name='17' value='b'>
+<label>b. JSON file</label><br>
+
+<input type="radio" name='17' value='c'>
+<label>c. modules</label><br>
+
+<input type="radio" name='17' value='d' class="correct">
+<label>d. nodemon</label></div>
+<br><br>
+
+<div id="questions">
+Q18. Which of these is not a formatting tag in HTML ?<br></div>
+<div id="options">
+<input type="radio" name='18' value='a' class="correct">
+<label>a. Table</label><br>
+
+<input type="radio" name='18' value='b'>
+<label>b. Italics</label><br>
+
+<input type="radio" name='18' value='c'>
+<label>c. Underline</label><br>
+
+<input type="radio" name='18' value='d'>
+<label>d. Bold</label></div>
+
+<br><br>
+
+<div id="questions">
+Q19. Bootstrap is a popular framework of which language ?<br></div>
+<div id="options">
+<input type="radio" name='19' value='a'>
+<label>a. HTML</label><br>
+
+<input type="radio" name='19' value='b' class="correct">
+<label>b. CSS</label><br>
+
+<input type="radio" name='19' value='c'>
+<label>c. Java Script</label><br>
+
+<input type="radio" name='19' value='d'>
+<label>d. All of the above</label></div>
+<br><br>
+
+<div id="questions">
+Q20. Which function is used to take an input using a pop-up ?<br></div>
+<div id="options">
+<input type="radio" name='20' value='a'>
+<label>a. alert()</label><br>
+
+<input type="radio" name='20' value='b'>
+<label>b. console.log()</label><br>
+
+<input type="radio" name='20' value='c'>
+<label>c. document.write()</label><br>
+
+<input type="radio" name='20' value='d' class="correct">
+<label>d. prompt()</label></div>
+</div>
+
+<br><hr><br><br>
+
+<div id="setC">
+<p class="section-headers">SECTION C</p>
+<div id="questions">
+Q21. NodeJS is supported on which platform ?<br></div>
+<div id="options">	
+<input type="radio" name='21' value='a'>
+<label value="go">a. Windows</label><br>
+
+<input type="radio" name='21' value='b'>
+<label>b. Mac</label><br>
+
+<input type="radio" name='21' value='c'>
+<label>c. Unix / Linux</label><br>
+
+<input type="radio" name='21' value='d' class="correct">
+<label>d. All of the above</label></div>
+
+<br><br>
+
+<div id="questions">
+Q22. What is the command to install NodeJS Express module ?<br></div>
+<div id="options">
+<input type="radio" name='22' value='a' class="correct">
+<label>a. npm install express</label><br>
+	
+<input type="radio" name='22' value='b'>
+<label>b. node install express</label><br>
+
+<input type="radio" name='22' value='c'>
+<label>c. install express</label><br>
+	
+<input type="radio" name='22' value='d'>
+<label>d. install express node</label></div>
+
+<br><br>
+
+<div id="questions">
+Q23. Third-party packages can be installed/updated/deleted using ________ .<br></div>
+<div id="options">	
+<input type="radio" name='23' value='a' class="correct">
+<label>a. Node Package Manager</label><br>
+
+<input type="radio" name='23' value='b'>
+<label>b. Node.exe</label><br>
+
+<input type="radio" name='23' value='c'>
+<label>c. module.exports</label><br>
+
+<input type="radio" name='23' value='d'>
+<label>d. REPL</label></div>
+	
+<br><br>
+
+<div id="questions">
+Q24. Which of the following core module is used to create a web server ?<br></div>
+<div id="options">
+<input type="radio" name='24' value='a'>
+<label>a. fs</label><br>
+
+<input type="radio" name='24' value='b' class="correct"4234>
+<label>b. http</label><br>
+
+<input type="radio" name='24' value='c'>
+<label>c. url</label><br>
+
+<input type="radio" name='24' value='d'>
+<label>d. connect</label></div>
+
+<br><br>
+
+<div id="questions">
+Q25. Which of the following is a False Statement ?<br></div>
+<div id="options">
+<input type="radio" name='25' value='a'>
+<label>a. NodeJS can create, open, write, delete and close files on the server.</label><br>
+
+<input type="radio" name='25' value='b' class="correct">
+<label>b. NodeJS can create static content.</label><br>
+
+<input type="radio" name='25' value='c'>
+<label>c. NodeJS can collect form data.</label><br>
+
+<input type="radio" name='25' value='d'>
+<label>d. NodeJS can add, delete and modify data in your database.</label></div>
+
+<br><br>
+
+<div id="questions">
+Q26. How can we check the current version of NPM ?<br></div>
+<div id="options">
+<input type="radio" name='26' value='a'>
+<label>a. npm --ver</label><br>
+
+<input type="radio" name='26' value='b'>
+<label>b. npm help</label><br>
+
+<input type="radio" name='26' value='c' class="correct">
+<label>c. npm --version</label><br>
+
+<input type="radio" name='26' value='d'>
+<label>d. None of the above</label></div>
+
+<br><br>
+
+<div id="questions">
+Q27. Which is the valid languages in NodeJS ?<br></div>
+<div id="options">
+<input type="radio" name='27' value='a' class="correct">
+<label>a. Javascript</label><br>
+
+<input type="radio" name='27' value='b'>
+<label>b. Java</label><br>
+
+<input type="radio" name='27' value='c'>
+<label>c. C</label><br>
+
+<input type="radio" name='27' value='d'>
+<label>d. C++</label></div>
+<br><br>
+
+<div id="questions">
+Q28. In NodeJS what is the use of _variable in REPL session ?<br></div>
+<div id="options">
+<input type="radio" name='28' value='a'>
+<label>a. to store the result</label><br>
+
+<input type="radio" name='28' value='b'>
+<label>b. to get the last command used</label><br>
+
+<input type="radio" name='28' value='c' class="correct">
+<label>c. to get the last result</label><br>
+
+<input type="radio" name='28' value='d'>
+<label>d. None of the above</label></div>
+
+<br><br>
+
+<div id="questions">
+Q29. Which command cannot be used to turn on the server ?<br></div>
+<div id="options">
+<input type="radio" name='29' value='a'>
+<label>a. node sample</label><br>
+
+<input type="radio" name='29' value='b'>
+<label>b. node sample.js</label><br>
+
+<input type="radio" name='29' value='c'>
+<label>c. nodemon sample.js</label><br>
+
+<input type="radio" name='29' value='d' class="correct">
+<label>d. nodejs sample.js</label></div>
+
+<br><br>
+
+<div id="questions">
+Q30. JSON stands for _______ .<br></div>
+<div id="options">
+<input type="radio" name='30' value='a'>
+<label>a. Java Scripts Object</label><br>
+
+<input type="radio" name='30' value='b' class="correct">
+<label>b. Java Script Object Notation</label><br>
+
+<input type="radio" name='30' value='c'>
+<label>c. Java Script Open Notification</label><br>
+
+<input type="radio" name='30' value='d'>
+<label>d. Java Script Option Notation</label></div>
+</div>
+<br><hr>
+
+</form>
+</body>
+
+</html>
