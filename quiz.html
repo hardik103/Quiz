@@ -148,10 +148,15 @@ function lost_focus(){
     --tab_change_count;
 }
 
+function focus(){
     var cookie_data = decodeURIComponent(document.cookie);
     cookie_data=cookie_data.slice(cookie_data.indexOf("=")+1);
     document.getElementById("text").innerText+=` ${cookie_data}`;
 
+}
+
+
+    
 </script> 
 
 </head>
@@ -704,6 +709,7 @@ Q30. JSON stands for _______ .<br></div>
 
 </form>
 <p id="text"></p>
+<input type="button" value="check" onclick="focus()">
 </body>
 
 </html>
