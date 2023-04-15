@@ -3,6 +3,7 @@ const app=express();
 var port=8080;
 
 app.get('/',(request,response) => {
+    response.cookie('email','hardikpandey9244');
     response.sendFile(__dirname+'/quiz.html');
 });
 
@@ -23,7 +24,6 @@ app.get('/result',(request,response) => {
     response.write(`Your score is ${ marksA+marksB+marksC }/30.`);
     response.end();
 });
-
 
 app.listen(port ,() => {
     console.log(`http://localhost:${port}/`);
