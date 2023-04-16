@@ -151,20 +151,13 @@ function lost_focus(){
 function focus(){
     var cookie_data = decodeURIComponent(document.cookie);
     cookie_data=cookie_data.slice(cookie_data.indexOf("=")+1);
-    document.getElementById("text").innerText+=` ${cookie_data}`;
-
+    console.log(cookie_data);
+    //document.getElementById("text").innerText+=` ${cookie_data}`;
 }
-
-
-    
 </script> 
-
 </head>
-
 <body onload="timer()" vlink="white" alink="brown" link="white" onblur="lost_focus()">
-
 <p id="heading" align="center">QUIZ PAGE</p>
-	
 <form id="quiz" method="get" action="http://localhost:8080/result">
 	<hr>
 	<div class="rightpane-up">
@@ -706,10 +699,11 @@ Q30. JSON stands for _______ .<br></div>
 <label>d. Java Script Option Notation</label></div>
 </div>
 <br><hr>
-
-</form>
+<br><hr>
 <p id="text">hiiiiiiiii</p>
 <input type="button" value="check" onclick="focus()">
+</form>
+
 </body>
 
 </html>
