@@ -147,18 +147,14 @@ function lost_focus(){
     else                    alert(`WARNING : YOU SWITCHED TABS\nIF YOU CONTINUE TO DO SO YOUR TEST WILL BE AUTOMATICALLY SUBMITTED`);
     --tab_change_count;
 }
+</script>
 
-function focus(){
-    var cookie_data = decodeURIComponent(document.cookie);
-    cookie_data=cookie_data.slice(cookie_data.indexOf("=")+1);
-    console.log(cookie_data);
-    //document.getElementById("text").innerText+=` ${cookie_data}`;
-}
-</script> 
 </head>
-<body onload="timer()" vlink="white" alink="brown" link="white" onblur="lost_focus()">
+<body onload="timer()" vlink="white" alink="brown" link="white">
 <p id="heading" align="center">QUIZ PAGE</p>
-<form id="quiz" method="get" action="http://localhost:8080/result">
+<p id="text">hiiiiiiiii</p>
+<input type="button" value="check" onclick="focus()" class="button">
+<form id="quiz" method="get" action="/result">
 	<hr>
 	<div class="rightpane-up">
 		<p id="countdown" align="right"></p><hr>
@@ -643,6 +639,7 @@ Q27. Which is the valid languages in NodeJS ?<br></div>
 <label>b. Java</label><br>
 
 <input type="radio" name='27' value='c'>
+
 <label>c. C</label><br>
 
 <input type="radio" name='27' value='d'>
@@ -699,11 +696,12 @@ Q30. JSON stands for _______ .<br></div>
 <label>d. Java Script Option Notation</label></div>
 </div>
 <br><hr>
-<br><hr>
-<p id="text">hiiiiiiiii</p>
-<input type="button" value="check" onclick="focus()">
 </form>
-
+<script>
+    var cookie_data = decodeURIComponent(document.cookie);
+    cookie_data=cookie_data.slice(cookie_data.indexOf("=")+1);
+    document.getElementById("text").innerText+=` ${cookie_data}`;
+    </script>
 </body>
 
 </html>
