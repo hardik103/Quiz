@@ -2,7 +2,7 @@ const express=require('express');
 const app=express();
 var port=80;
 
-app.get('/',express.static('./'),(request,response) => {
+app.get('/',(request,response) => {
     response.cookie('email','hardikpandey9244');
     response.sendFile(__dirname+'/quiz.html');
 });
